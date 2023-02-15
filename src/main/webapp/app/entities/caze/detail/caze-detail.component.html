@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="caze">
+      <h2 data-cy="cazeDetailsHeading"><span jhiTranslate="elitysApp.caze.detail.title">Caze</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ caze.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.caze.question">Question</span></dt>
+        <dd>
+          <span>{{ caze.question }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.caze.absice">Absice</span></dt>
+        <dd>
+          <span>{{ caze.absice }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.caze.ordo">Ordo</span></dt>
+        <dd>
+          <span>{{ caze.ordo }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.caze.position">Position</span></dt>
+        <dd>
+          <span>{{ caze.position }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.caze.plateau">Plateau</span></dt>
+        <dd>
+          <div *ngIf="caze.plateau">
+            <a [routerLink]="['/plateau', caze.plateau?.id, 'view']">{{ caze.plateau?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/caze', caze.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

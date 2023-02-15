@@ -1,0 +1,45 @@
+{
+  "applications": ["ELITYS"],
+  "changelogDate": "20230215201143",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "caze",
+  "fields": [
+    {
+      "fieldName": "question",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "absice",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "ordo",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "position",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Caze",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "joueur",
+      "otherEntityRelationshipName": "caze",
+      "relationshipName": "users",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "plateau",
+      "otherEntityRelationshipName": "questions",
+      "relationshipName": "plateau",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

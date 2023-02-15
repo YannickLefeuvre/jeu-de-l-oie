@@ -1,0 +1,72 @@
+
+
+application {
+  config {
+    baseName ELITYS,
+    applicationType monolith,
+    authenticationType jwt,
+    serverPort 9001,
+    prodDatabaseType postgresql,
+    buildTool maven,
+    clientFramework angularX,
+    clientPackageManager npm
+  }
+  entities *
+}
+
+enum Couleur {
+  BLEU,
+  VIOLET,
+  ROUGE,
+  JAUNE,
+  BLEU,
+  VERT,
+  ORANGE,
+  ROSE,
+  GRIS,
+  MARRON
+}
+
+entity Joueur {
+  nom String,
+  positions Integer,
+  couleur Couleur
+}
+
+entity Plateau {
+    nom String,
+    image ImageBlob,
+    nbQuestions Integer,
+    principal Boolean
+}
+
+entity Reponse{
+   question String,
+   reponse String
+}
+
+entity Caze{
+    question String,
+    absice Integer,
+    ordo Integer,
+    position Integer
+}
+
+entity ApplicationUser {
+    nom String
+}
+
+relationship OneToOne {
+  ApplicationUser{internalUser} to User{applicationUser}
+}
+
+relationship OneToMany {
+  Plateau{questions} to Caze{plateau},
+  Joueur{reponses} to Reponse{user},
+  ApplicationUser{joueurs} to Joueur{user},
+  Caze{users} to Joueur{caze},
+  Plateau{users} to Joueur{plateau},
+}
+
+
+

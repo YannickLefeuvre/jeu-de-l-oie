@@ -1,0 +1,54 @@
+{
+  "applications": ["ELITYS"],
+  "changelogDate": "20230215200843",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "joueur",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "positions",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "couleur",
+      "fieldType": "Couleur",
+      "fieldValues": "BLEU,VIOLET,ROUGE,JAUNE,VERT,ORANGE,ROSE,GRIS,MARRON"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Joueur",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "reponse",
+      "otherEntityRelationshipName": "user",
+      "relationshipName": "reponses",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "applicationUser",
+      "otherEntityRelationshipName": "joueurs",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "caze",
+      "otherEntityRelationshipName": "users",
+      "relationshipName": "caze",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "plateau",
+      "otherEntityRelationshipName": "users",
+      "relationshipName": "plateau",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

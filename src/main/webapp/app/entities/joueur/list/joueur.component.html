@@ -1,0 +1,90 @@
+<div>
+  <h2 id="page-heading" data-cy="JoueurHeading">
+    <span jhiTranslate="elitysApp.joueur.home.title">Joueurs</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="elitysApp.joueur.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-joueur"
+        [routerLink]="['/joueur/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="elitysApp.joueur.home.createLabel"> Create a new Joueur </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="joueurs?.length === 0">
+    <span jhiTranslate="elitysApp.joueur.home.notFound">No joueurs found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="joueurs && joueurs.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.joueur.nom">Nom</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.joueur.positions">Positions</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.joueur.couleur">Couleur</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.joueur.user">User</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.joueur.caze">Caze</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.joueur.plateau">Plateau</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let joueur of joueurs; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/joueur', joueur.id, 'view']">{{ joueur.id }}</a>
+          </td>
+          <td>{{ joueur.nom }}</td>
+          <td>{{ joueur.positions }}</td>
+          <td jhiTranslate="{{ 'elitysApp.Couleur.' + joueur.couleur }}">{{ joueur.couleur }}</td>
+          <td>
+            <div *ngIf="joueur.user">
+              <a [routerLink]="['/application-user', joueur.user?.id, 'view']">{{ joueur.user?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="joueur.caze">
+              <a [routerLink]="['/caze', joueur.caze?.id, 'view']">{{ joueur.caze?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="joueur.plateau">
+              <a [routerLink]="['/plateau', joueur.plateau?.id, 'view']">{{ joueur.plateau?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/joueur', joueur.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/joueur', joueur.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(joueur)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-joueur-heading" data-cy="JoueurCreateUpdateHeading" jhiTranslate="elitysApp.joueur.home.createOrEditLabel">
+        Create or edit a Joueur
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.joueur.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.joueur.positions" for="field_positions">Positions</label>
+          <input type="number" class="form-control" name="positions" id="field_positions" data-cy="positions" formControlName="positions" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.joueur.couleur" for="field_couleur">Couleur</label>
+          <select class="form-control" name="couleur" formControlName="couleur" id="field_couleur" data-cy="couleur">
+            <option [ngValue]="null">{{ 'elitysApp.Couleur.null' | translate }}</option>
+            <option *ngFor="let couleur of couleurValues" [value]="couleur">{{ 'elitysApp.Couleur.' + couleur | translate }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.joueur.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="applicationUserOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : applicationUserOption"
+              *ngFor="let applicationUserOption of applicationUsersSharedCollection; trackBy: trackApplicationUserById"
+            >
+              {{ applicationUserOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.joueur.caze" for="field_caze">Caze</label>
+          <select class="form-control" id="field_caze" data-cy="caze" name="caze" formControlName="caze">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="cazeOption.id === editForm.get('caze')!.value?.id ? editForm.get('caze')!.value : cazeOption"
+              *ngFor="let cazeOption of cazesSharedCollection; trackBy: trackCazeById"
+            >
+              {{ cazeOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.joueur.plateau" for="field_plateau">Plateau</label>
+          <select class="form-control" id="field_plateau" data-cy="plateau" name="plateau" formControlName="plateau">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="plateauOption.id === editForm.get('plateau')!.value?.id ? editForm.get('plateau')!.value : plateauOption"
+              *ngFor="let plateauOption of plateausSharedCollection; trackBy: trackPlateauById"
+            >
+              {{ plateauOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

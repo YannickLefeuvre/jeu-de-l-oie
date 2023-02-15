@@ -1,0 +1,57 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-reponse-heading" data-cy="ReponseCreateUpdateHeading" jhiTranslate="elitysApp.reponse.home.createOrEditLabel">
+        Create or edit a Reponse
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.reponse.question" for="field_question">Question</label>
+          <input type="text" class="form-control" name="question" id="field_question" data-cy="question" formControlName="question" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.reponse.reponse" for="field_reponse">Reponse</label>
+          <input type="text" class="form-control" name="reponse" id="field_reponse" data-cy="reponse" formControlName="reponse" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.reponse.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="joueurOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : joueurOption"
+              *ngFor="let joueurOption of joueursSharedCollection; trackBy: trackJoueurById"
+            >
+              {{ joueurOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-caze-heading" data-cy="CazeCreateUpdateHeading" jhiTranslate="elitysApp.caze.home.createOrEditLabel">
+        Create or edit a Caze
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.caze.question" for="field_question">Question</label>
+          <input type="text" class="form-control" name="question" id="field_question" data-cy="question" formControlName="question" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.caze.absice" for="field_absice">Absice</label>
+          <input type="number" class="form-control" name="absice" id="field_absice" data-cy="absice" formControlName="absice" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.caze.ordo" for="field_ordo">Ordo</label>
+          <input type="number" class="form-control" name="ordo" id="field_ordo" data-cy="ordo" formControlName="ordo" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.caze.position" for="field_position">Position</label>
+          <input type="number" class="form-control" name="position" id="field_position" data-cy="position" formControlName="position" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="elitysApp.caze.plateau" for="field_plateau">Plateau</label>
+          <select class="form-control" id="field_plateau" data-cy="plateau" name="plateau" formControlName="plateau">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="plateauOption.id === editForm.get('plateau')!.value?.id ? editForm.get('plateau')!.value : plateauOption"
+              *ngFor="let plateauOption of plateausSharedCollection; trackBy: trackPlateauById"
+            >
+              {{ plateauOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

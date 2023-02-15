@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="plateau">
+      <h2 data-cy="plateauDetailsHeading"><span jhiTranslate="elitysApp.plateau.detail.title">Plateau</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ plateau.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.plateau.nom">Nom</span></dt>
+        <dd>
+          <span>{{ plateau.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.plateau.image">Image</span></dt>
+        <dd>
+          <div *ngIf="plateau.image">
+            <a (click)="openFile(plateau.image, plateau.imageContentType)">
+              <img [src]="'data:' + plateau.imageContentType + ';base64,' + plateau.image" style="max-width: 100%" alt="plateau image" />
+            </a>
+            {{ plateau.imageContentType }}, {{ byteSize(plateau.image) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.plateau.nbQuestions">Nb Questions</span></dt>
+        <dd>
+          <span>{{ plateau.nbQuestions }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.plateau.principal">Principal</span></dt>
+        <dd>
+          <span>{{ plateau.principal }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/plateau', plateau.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

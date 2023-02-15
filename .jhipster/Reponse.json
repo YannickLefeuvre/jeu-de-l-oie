@@ -1,0 +1,31 @@
+{
+  "applications": ["ELITYS"],
+  "changelogDate": "20230215201043",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "reponse",
+  "fields": [
+    {
+      "fieldName": "question",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reponse",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Reponse",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "joueur",
+      "otherEntityRelationshipName": "reponses",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

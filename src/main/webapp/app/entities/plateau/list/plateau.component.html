@@ -1,0 +1,89 @@
+<div>
+  <h2 id="page-heading" data-cy="PlateauHeading">
+    <span jhiTranslate="elitysApp.plateau.home.title">Plateaus</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="elitysApp.plateau.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-plateau"
+        [routerLink]="['/plateau/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="elitysApp.plateau.home.createLabel"> Create a new Plateau </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="plateaus?.length === 0">
+    <span jhiTranslate="elitysApp.plateau.home.notFound">No plateaus found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="plateaus && plateaus.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.plateau.nom">Nom</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.plateau.image">Image</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.plateau.nbQuestions">Nb Questions</span></th>
+          <th scope="col"><span jhiTranslate="elitysApp.plateau.principal">Principal</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plateau of plateaus; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/plateau', plateau.id, 'view']">{{ plateau.id }}</a>
+          </td>
+          <td>{{ plateau.nom }}</td>
+          <td>
+            <a *ngIf="plateau.image" (click)="openFile(plateau.image, plateau.imageContentType)">
+              <img [src]="'data:' + plateau.imageContentType + ';base64,' + plateau.image" style="max-height: 30px" alt="plateau image" />
+            </a>
+            <span *ngIf="plateau.image">{{ plateau.imageContentType }}, {{ byteSize(plateau.image) }}</span>
+          </td>
+          <td>{{ plateau.nbQuestions }}</td>
+          <td>{{ plateau.principal }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/plateau', plateau.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/plateau', plateau.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(plateau)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

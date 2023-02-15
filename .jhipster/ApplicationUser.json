@@ -1,0 +1,34 @@
+{
+  "applications": ["ELITYS"],
+  "changelogDate": "20230215201243",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "application_user",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ApplicationUser",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "applicationUser",
+      "ownerSide": true,
+      "relationshipName": "internalUser",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "joueur",
+      "otherEntityRelationshipName": "user",
+      "relationshipName": "joueurs",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

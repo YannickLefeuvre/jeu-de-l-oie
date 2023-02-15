@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="reponse">
+      <h2 data-cy="reponseDetailsHeading"><span jhiTranslate="elitysApp.reponse.detail.title">Reponse</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ reponse.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.reponse.question">Question</span></dt>
+        <dd>
+          <span>{{ reponse.question }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.reponse.reponse">Reponse</span></dt>
+        <dd>
+          <span>{{ reponse.reponse }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.reponse.user">User</span></dt>
+        <dd>
+          <div *ngIf="reponse.user">
+            <a [routerLink]="['/joueur', reponse.user?.id, 'view']">{{ reponse.user?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/reponse', reponse.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

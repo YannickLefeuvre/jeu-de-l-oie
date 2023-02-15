@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="joueur">
+      <h2 data-cy="joueurDetailsHeading"><span jhiTranslate="elitysApp.joueur.detail.title">Joueur</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ joueur.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.joueur.nom">Nom</span></dt>
+        <dd>
+          <span>{{ joueur.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.joueur.positions">Positions</span></dt>
+        <dd>
+          <span>{{ joueur.positions }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.joueur.couleur">Couleur</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'elitysApp.Couleur.' + joueur.couleur }}">{{ joueur.couleur }}</span>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.joueur.user">User</span></dt>
+        <dd>
+          <div *ngIf="joueur.user">
+            <a [routerLink]="['/application-user', joueur.user?.id, 'view']">{{ joueur.user?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.joueur.caze">Caze</span></dt>
+        <dd>
+          <div *ngIf="joueur.caze">
+            <a [routerLink]="['/caze', joueur.caze?.id, 'view']">{{ joueur.caze?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="elitysApp.joueur.plateau">Plateau</span></dt>
+        <dd>
+          <div *ngIf="joueur.plateau">
+            <a [routerLink]="['/plateau', joueur.plateau?.id, 'view']">{{ joueur.plateau?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/joueur', joueur.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

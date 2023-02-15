@@ -1,0 +1,46 @@
+{
+  "applications": ["ELITYS"],
+  "changelogDate": "20230215200943",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "plateau",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "nbQuestions",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "principal",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Plateau",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "caze",
+      "otherEntityRelationshipName": "plateau",
+      "relationshipName": "questions",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "joueur",
+      "otherEntityRelationshipName": "plateau",
+      "relationshipName": "users",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

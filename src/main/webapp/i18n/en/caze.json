@@ -1,0 +1,29 @@
+{
+  "elitysApp": {
+    "caze": {
+      "home": {
+        "title": "Cazes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Caze",
+        "createOrEditLabel": "Create or edit a Caze",
+        "notFound": "No Cazes found"
+      },
+      "created": "A new Caze is created with identifier {{ param }}",
+      "updated": "A Caze is updated with identifier {{ param }}",
+      "deleted": "A Caze is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Caze {{ id }}?"
+      },
+      "detail": {
+        "title": "Caze"
+      },
+      "id": "ID",
+      "question": "Question",
+      "absice": "Absice",
+      "ordo": "Ordo",
+      "position": "Position",
+      "users": "Users",
+      "plateau": "Plateau"
+    }
+  }
+}
