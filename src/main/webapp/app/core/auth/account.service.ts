@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Observable, ReplaySubject, of } from 'rxjs';
@@ -9,9 +9,12 @@ import { shareReplay, tap, catchError } from 'rxjs/operators';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { ApplicationConfigService } from '../config/application-config.service';
 import { Account } from 'app/core/auth/account.model';
+import { IApplicationUser } from 'app/entities/application-user/application-user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/getappliuser');
+
   private userIdentity: Account | null = null;
   private authenticationState = new ReplaySubject<Account | null>(1);
   private accountCache$?: Observable<Account> | null;
@@ -27,6 +30,10 @@ export class AccountService {
 
   save(account: Account): Observable<{}> {
     return this.http.post(this.applicationConfigService.getEndpointFor('api/account'), account);
+  }
+
+  getApplicationUser(account: string): Observable<HttpResponse<IApplicationUser>> {
+    return this.http.get<IApplicationUser>(`${this.resourceUrl}/${account}`, { observe: 'response' });
   }
 
   authenticate(identity: Account | null): void {

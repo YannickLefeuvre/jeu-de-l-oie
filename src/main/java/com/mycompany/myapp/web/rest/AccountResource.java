@@ -1,6 +1,10 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.ApplicationUser;
+import com.mycompany.myapp.domain.Joueur;
 import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.repository.ApplicationUserRepository;
+import com.mycompany.myapp.repository.JoueurRepository;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.MailService;
@@ -17,7 +21,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing the current user's account.
@@ -41,10 +47,22 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    private final ApplicationUserRepository applicationUserRepository;
+
+    private final JoueurRepository joueurRepository;
+
+    public AccountResource(
+        UserRepository userRepository,
+        UserService userService,
+        MailService mailService,
+        JoueurRepository joueurRepository,
+        ApplicationUserRepository applicationUserRepository
+    ) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.applicationUserRepository = applicationUserRepository;
+        this.joueurRepository = joueurRepository;
     }
 
     /**
@@ -103,6 +121,35 @@ public class AccountResource {
             .getUserWithAuthorities()
             .map(AdminUserDTO::new)
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
+    }
+
+    @GetMapping("/getappliuser/{login}")
+    public ResponseEntity<ApplicationUser> getContenant(@PathVariable String login) {
+        log.debug("REST request to get Contenant : {}", login);
+
+        List<ApplicationUser> applicationUsers = this.applicationUserRepository.findAll();
+        Optional<ApplicationUser> appliUser = null;
+
+        for (ApplicationUser applicationUser : applicationUsers) {
+            if (
+                applicationUser.getInternalUser() != null &&
+                applicationUser.getInternalUser().getId() == userService.getUserWithAuthoritiesByLogin(login).get().getId()
+            ) {
+                appliUser = applicationUserRepository.findById(applicationUser.getId());
+            }
+        }
+
+        List<Joueur> joueurs = this.joueurRepository.findAll();
+
+        for (Joueur joueur : joueurs) {
+            if (joueur.getUser() != null && appliUser != null && joueur.getUser().getId() == appliUser.get().getId()) {
+                appliUser.get().addJoueurs(joueur);
+            }
+        }
+
+        log.info("Passay " + appliUser.get().getJoueurs().size());
+
+        return ResponseUtil.wrapOrNotFound(appliUser);
     }
 
     /**

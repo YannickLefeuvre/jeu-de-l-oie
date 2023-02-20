@@ -31,7 +31,7 @@ public class ApplicationUser implements Serializable {
     @JoinColumn(unique = true)
     private User internalUser;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "reponses", "user", "caze", "plateau" }, allowSetters = true)
     private Set<Joueur> joueurs = new HashSet<>();
