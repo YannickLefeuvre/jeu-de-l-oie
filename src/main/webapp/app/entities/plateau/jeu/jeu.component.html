@@ -1,0 +1,14 @@
+<h1>JEU:</h1>
+<div *ngFor="let caze of this.plateau?.questions">
+  <div>{{ caze.question }}</div>
+  <div *ngFor="let joueur of this.joueurs">
+    <div *ngIf="estSurCase(caze, joueur)">
+      <div>
+        <div *ngIf="isPrincipalJoueur(joueur); else elseBlock">
+          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{ joueur.nom }} (moi)
+        </div>
+        <ng-template #elseBlock>&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{ joueur.nom }}</ng-template>
+      </div>
+    </div>
+  </div>
+</div>

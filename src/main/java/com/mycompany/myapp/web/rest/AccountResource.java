@@ -49,7 +49,7 @@ public class AccountResource {
 
     private final ApplicationUserRepository applicationUserRepository;
 
-    private final JoueurRepository joueurRepository;
+    private JoueurRepository joueurRepository;
 
     public AccountResource(
         UserRepository userRepository,
@@ -124,7 +124,7 @@ public class AccountResource {
     }
 
     @GetMapping("/getappliuser/{login}")
-    public ResponseEntity<ApplicationUser> getContenant(@PathVariable String login) {
+    public ResponseEntity<ApplicationUser> getApplicationUser(@PathVariable String login) {
         log.debug("REST request to get Contenant : {}", login);
 
         List<ApplicationUser> applicationUsers = this.applicationUserRepository.findAll();
@@ -138,17 +138,18 @@ public class AccountResource {
                 appliUser = applicationUserRepository.findById(applicationUser.getId());
             }
         }
-
         List<Joueur> joueurs = this.joueurRepository.findAll();
 
         for (Joueur joueur : joueurs) {
-            if (joueur.getUser() != null && appliUser != null && joueur.getUser().getId() == appliUser.get().getId()) {
+            if (appliUser.get().getJoueurs().contains(joueur)) {
+                appliUser.get().getJoueurs().remove(joueur);
+            }
+
+            if (joueur.getUser() != null && appliUser.get() != null && joueur.getUser().equals(appliUser.get())) {
+                log.info("Super Passay");
                 appliUser.get().addJoueurs(joueur);
             }
         }
-
-        log.info("Passay " + appliUser.get().getJoueurs().size());
-
         return ResponseUtil.wrapOrNotFound(appliUser);
     }
 

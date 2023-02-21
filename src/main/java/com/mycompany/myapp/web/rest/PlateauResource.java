@@ -1,6 +1,8 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.Caze;
 import com.mycompany.myapp.domain.Plateau;
+import com.mycompany.myapp.repository.CazeRepository;
 import com.mycompany.myapp.repository.PlateauRepository;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -34,8 +36,11 @@ public class PlateauResource {
 
     private final PlateauRepository plateauRepository;
 
-    public PlateauResource(PlateauRepository plateauRepository) {
+    private final CazeRepository cazeRepository;
+
+    public PlateauResource(PlateauRepository plateauRepository, CazeRepository cazeRepository) {
         this.plateauRepository = plateauRepository;
+        this.cazeRepository = cazeRepository;
     }
 
     /**
@@ -168,6 +173,35 @@ public class PlateauResource {
     public ResponseEntity<Plateau> getPlateau(@PathVariable Long id) {
         log.debug("REST request to get Plateau : {}", id);
         Optional<Plateau> plateau = plateauRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(plateau);
+    }
+
+    @GetMapping("/plateaus/principal")
+    public ResponseEntity<Plateau> getPlateauPrincipal() {
+        Optional<Plateau> plateau = null;
+
+        List<Plateau> plateaus = this.plateauRepository.findAll();
+
+        for (Plateau plato : plateaus) {
+            if (plato.getPrincipal() == true) {
+                plateau = this.plateauRepository.findById(plato.getId());
+                break;
+            }
+        }
+
+        if (plateau == null) {
+            log.info("ALERTE, IL N'Y A PAS DE PLATEAU PRINCIPAL !!!!");
+            return ResponseUtil.wrapOrNotFound(null);
+        }
+
+        List<Caze> cazes = this.cazeRepository.findAll();
+
+        for (Caze caze : cazes) {
+            if (caze.getPlateau() != null && caze.getPlateau().getId() == plateau.get().getId()) {
+                plateau.get().addQuestions(caze);
+            }
+        }
+
         return ResponseUtil.wrapOrNotFound(plateau);
     }
 

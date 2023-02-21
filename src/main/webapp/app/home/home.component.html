@@ -1,4 +1,4 @@
 <h1>Je veux jouer avec:</h1>
 <div *ngFor="let joueur of this.appicationUser?.joueurs">
-  <div>{{ joueur.nom }}</div>
+  <a [routerLink]="['/plateau', joueur.id, 'jeu']">{{ joueur.nom }}</a>
 </div>

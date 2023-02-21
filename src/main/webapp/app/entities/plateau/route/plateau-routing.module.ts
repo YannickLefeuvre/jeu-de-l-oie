@@ -6,6 +6,8 @@ import { PlateauComponent } from '../list/plateau.component';
 import { PlateauDetailComponent } from '../detail/plateau-detail.component';
 import { PlateauUpdateComponent } from '../update/plateau-update.component';
 import { PlateauRoutingResolveService } from './plateau-routing-resolve.service';
+import { JeuComponent } from '../jeu/jeu.component';
+import { JoueurRoutingResolveService } from 'app/entities/joueur/route/joueur-routing-resolve.service';
 
 const plateauRoute: Routes = [
   {
@@ -34,6 +36,14 @@ const plateauRoute: Routes = [
     component: PlateauUpdateComponent,
     resolve: {
       plateau: PlateauRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/jeu',
+    component: JeuComponent,
+    resolve: {
+      joueur: JoueurRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },
