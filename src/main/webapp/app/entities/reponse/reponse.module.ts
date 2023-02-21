@@ -9,6 +9,5 @@ import { ReponseRoutingModule } from './route/reponse-routing.module';
 @NgModule({
   imports: [SharedModule, ReponseRoutingModule],
   declarations: [ReponseComponent, ReponseDetailComponent, ReponseUpdateComponent, ReponseDeleteDialogComponent],
-  entryComponents: [ReponseDeleteDialogComponent],
 })
 export class ReponseModule {}

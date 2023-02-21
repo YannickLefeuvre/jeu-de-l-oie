@@ -10,6 +10,5 @@ import { JeuComponent } from './jeu/jeu.component';
 @NgModule({
   imports: [SharedModule, PlateauRoutingModule],
   declarations: [PlateauComponent, PlateauDetailComponent, PlateauUpdateComponent, PlateauDeleteDialogComponent, JeuComponent],
-  entryComponents: [PlateauDeleteDialogComponent],
 })
 export class PlateauModule {}
