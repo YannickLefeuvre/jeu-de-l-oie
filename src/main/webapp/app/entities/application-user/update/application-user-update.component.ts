@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { UntypedFormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class ApplicationUserUpdateComponent implements OnInit {
     protected applicationUserService: ApplicationUserService,
     protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: UntypedFormBuilder
+    protected fb: FormBuilder
   ) {}
 
   ngOnInit(): void {

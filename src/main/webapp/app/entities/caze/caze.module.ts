@@ -9,5 +9,6 @@ import { CazeRoutingModule } from './route/caze-routing.module';
 @NgModule({
   imports: [SharedModule, CazeRoutingModule],
   declarations: [CazeComponent, CazeDetailComponent, CazeUpdateComponent, CazeDeleteDialogComponent],
+  entryComponents: [CazeDeleteDialogComponent],
 })
 export class CazeModule {}

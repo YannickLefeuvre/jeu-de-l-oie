@@ -98,6 +98,7 @@
       }
     }
   },
+  "defaultProject": "elitys",
   "cli": {
     "analytics": false,
     "cache": {

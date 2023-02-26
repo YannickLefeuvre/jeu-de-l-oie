@@ -9,5 +9,6 @@ import { JoueurRoutingModule } from './route/joueur-routing.module';
 @NgModule({
   imports: [SharedModule, JoueurRoutingModule],
   declarations: [JoueurComponent, JoueurDetailComponent, JoueurUpdateComponent, JoueurDeleteDialogComponent],
+  entryComponents: [JoueurDeleteDialogComponent],
 })
 export class JoueurModule {}
