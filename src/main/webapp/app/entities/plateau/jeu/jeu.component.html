@@ -12,3 +12,32 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">JOUER</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form name="editForm" role="form" [formGroup]="editForm">
+    <div class="modal-body">
+      <div class="mb-3">
+        <label for="dateOfBirth">QUESTION</label>
+        <div>{{ this.joueur?.caze?.question }}</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="form-label" jhiTranslate="elitysApp.reponse.reponse" for="field_reponse">Reponse</label>
+      <input type="text" class="form-control" name="reponse" id="field_reponse" data-cy="reponse" formControlName="reponse" />
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="saveReponse(this.joueur, modal)">jouer</button>
+    </div>
+  </form>
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">JOUER</button>
+
+<hr />
+
+<pre>{{ closeResult }}</pre>

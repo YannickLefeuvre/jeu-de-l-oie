@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => ((this.account = account), this.getApplicationUser(account?.login ?? '')));
 
-    this.getPlateauPrincipal();
+    this.redirectIfAccountIsNull();
   }
 
   login(): void {
@@ -53,5 +53,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       .findPrincipal()
       .pipe(takeUntil(this.destroy$))
       .subscribe(plateau => (this.plateau = plateau.body));
+  }
+
+  redirectIfAccountIsNull(): void {
+    if (this.account == null) {
+      this.login();
+    }
   }
 }
